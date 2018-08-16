@@ -1,33 +1,8 @@
-let isInited = false;
+// Dita 主类
+import Dita from './core/dita';
+// Dita 样式
+import './core/dita.scss';
 
-const onload = () => {
-  if (isInited) {
-    return;
-  }
-  isInited = true;
-
-  console.log('dita init');
-};
-
-if (document !== undefined) {
-  if (document.readyState === 'complete') {
-    onload();
-  } else {
-    window.onload = onload;
-    // $.bind(window, 'load', onload);
-  }
-} else {
-  // if document does not exist, wait for it
-  let loadTimer;
-  const pollingDocument = () => {
-    if (!!document && document.readyState === 'complete') {
-      if (loadTimer) {
-        clearTimeout(loadTimer);
-      }
-      onload();
-    } else {
-      loadTimer = setTimeout(pollingDocument, 1);
-    }
-  };
-  loadTimer = setTimeout(pollingDocument, 1);
+if (typeof window !== 'undefined' && !window.Dita) {
+  window.Dita = Dita;
 }
